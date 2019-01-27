@@ -7,7 +7,8 @@ class Common {
 }
 Common.ELECTRON = 'Electron';
 Common.ELECTRONIC_WECHAT = 'Electronic WeChat';
-Common.DEBUG_MODE = false;
+//Common.DEBUG_MODE = false;
+Common.DEBUG_MODE = true;
 Common.WINDOW_SIZE = {
   width: 800,
   height: 600,
@@ -28,17 +29,17 @@ Common.WINDOW_SIZE_SETTINGS = {
 Common.USER_AGENT = {
   'freebsd': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
   'sunos': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
-  'win32': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
-  'linux': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
-  'darwin': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'
+  'win32': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.2840.71 Safari/537.36',
+  'linux': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.2840.71 Safari/537.36',
+  'darwin': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.2840.71 Safari/537.36'
 }
 
 Common.WEB_WECHAT = 'https://wx.qq.com/?lang=zh_CN';
-Common.GITHUB = 'https://github.com/geeeeeeeeek/electronic-wechat';
-Common.GITHUB_RELEASES = 'https://github.com/geeeeeeeeek/electronic-wechat/releases';
-Common.GITHUB_ISSUES = 'https://github.com/geeeeeeeeek/electronic-wechat/issues';
+Common.GITHUB = 'https://github.com/kjx98/electronic-wechat';
+Common.GITHUB_RELEASES = 'https://github.com/kjx98/electronic-wechat/releases';
+Common.GITHUB_ISSUES = 'https://github.com/kjx98/electronic-wechat/issues';
 Common.GITHUB_API_HOST = 'api.github.com';
-Common.GITHUB_API_RELEASE_LATEST_PATH = '/repos/geeeeeeeeek/electronic-wechat/releases/latest';
+Common.GITHUB_API_RELEASE_LATEST_PATH = '/repos/kjx98/electronic-wechat/releases/latest';
 
 Common.UPDATE_ERROR_ELECTRON = 'Failed to get the local version. If you are using debug mode(by `npm start`), this error would happen. Use packed app instead or manually check for updates.\n\n' + Common.GITHUB_RELEASES;
 Common.UPDATE_ERROR_EMPTY_RESPONSE = '没能获取最新的更新信息';
