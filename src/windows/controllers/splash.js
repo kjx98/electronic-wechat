@@ -32,10 +32,10 @@ class SplashWindow {
       alwaysOnTop: true,
       icon: 'assets/icon.png',
       titleBarStyle: 'hidden',
-	  webPreferences: {
-		nodeIntegration: false,
-		contextIsolation: false,
-	  },
+      webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: false,
+      },
     });
 
     this.splashWindow.loadURL(`file://${path.join(__dirname, '/../views/splash.html')}`);

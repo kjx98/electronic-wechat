@@ -63,7 +63,7 @@ class WeChatWindow {
         javascript: true,
         plugins: true,
         nodeIntegration: false,
-		contextIsolation: false,
+        contextIsolation: false,
         webSecurity: true,
         preload: path.join(__dirname, '../../inject/preload.js'),
       },
@@ -152,6 +152,7 @@ class WeChatWindow {
         this.hide();
       }
       this.unregisterLocalShortCut();
+      app.exit(0)
     });
 
     this.wechatWindow.on('page-title-updated', (ev) => {

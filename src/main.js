@@ -31,24 +31,24 @@ class ElectronicWeChat {
   checkInstance() {
     if (AppConfig.readSettings('multi-instance') === 'on') return true;
     const shouldQuit = !app.requestSingleInstanceLock()
-	if (shouldQuit) {
-		app.quit()
-	} else {
-		app.on('second-instance', (event,commandLine, workingDirectory) => {
-	      if(this.splashWindow && this.splashWindow.isShown){
-    	    this.splashWindow.show();
-      	  }
-      	  if(this.wechatWindow){
-     		this.wechatWindow.show();
-      	  }
-          if(this.settingsWindow && this.settingsWindow.isShown){
-			this.settingsWindow.show();
-          }
-		});
-		app.on('ready', () => {
-		})
-	}
-	return !shouldQuit;
+    if (shouldQuit) {
+      app.quit()
+    } else {
+      app.on('second-instance', (event,commandLine, workingDirectory) => {
+          if(this.splashWindow && this.splashWindow.isShown){
+            this.splashWindow.show();
+            }
+            if(this.wechatWindow){
+          this.wechatWindow.show();
+            }
+            if(this.settingsWindow && this.settingsWindow.isShown){
+        this.settingsWindow.show();
+            }
+      });
+      app.on('ready', () => {
+      })
+    }
+    return !shouldQuit;
   }
   initApp() {
     app.on('ready', ()=> {
