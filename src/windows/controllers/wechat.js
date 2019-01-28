@@ -63,7 +63,8 @@ class WeChatWindow {
         javascript: true,
         plugins: true,
         nodeIntegration: false,
-        webSecurity: false,
+		contextIsolation: false,
+        webSecurity: true,
         preload: path.join(__dirname, '../../inject/preload.js'),
       },
     });
@@ -113,7 +114,7 @@ class WeChatWindow {
   initWindowWebContent() {
     this.wechatWindow.webContents.setUserAgent(Common.USER_AGENT[process.platform]);
     if (Common.DEBUG_MODE) {
-      this.wechatWindow.webContents.openDevTools();
+      this.wechatWindow.webContents.openDevTools({mode: 'detach'});
     }
 
     this.connectWeChat();

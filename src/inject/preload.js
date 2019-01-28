@@ -20,7 +20,7 @@ class Injector {
     this.initAngularInjection();
     this.lastUser = null;
     this.initIPC();
-    webFrame.setZoomLevelLimits(1, 1);
+    webFrame.setVisualZoomLevelLimits(1, 1);
 
     new MenuHandler().create();
   }
