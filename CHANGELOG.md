@@ -1,8 +1,9 @@
 # CHANGELOG
 
-**v3.0 (2019.01.27) CN**
+**v2.9 (2019.01.27) CN**
 1. 升级 **Electron** 至 **V4.0.2**
 2. change makeSinfleInstance to requestSingleInstanceLock
+3. drop windows build
 
 **v2.0 (2017.02.13) CN**
 

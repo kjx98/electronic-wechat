@@ -63,6 +63,7 @@ Common.MENTION_MENU_HINT_TEXT = '选择回复的人:';
 Common.MESSAGE_PREVENT_RECALL = '阻止了一次撤回';
 
 Common.EMOJI_MAXIUM_SIZE = 120;
+Common.ROBOT = '@JacK';
 
 Common.MENU = {
   about: '关于 Electronic Wechat',

@@ -2,9 +2,10 @@
 
 # Electronic WeChat
 
-*A better WeChat on macOS and Linux. Built with [Electron](https://github.com/atom/electron).*
+*A better WeChat on Linux (maybe also macOS). Built with [Electron](https://github.com/electron/electron).*
 
-> **⚠️⚠️ NO LONGER IN ACTIVE DEVELOPMENT | 项目不再维护 ⚠️⚠️** 
+Resurgence, 重新启用, 更新使用electron 4.0, 增加微信群 机器人Hook 监听, 增加xmpp转发.
+
 > 
 > Thanks for supporting this project for **1000** days since Feb 16, 2016. 
 > 

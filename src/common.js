@@ -9,8 +9,8 @@ class Common {
 }
 Common.ELECTRON = 'Electron';
 Common.ELECTRONIC_WECHAT = 'Electronic WeChat';
-//Common.DEBUG_MODE = false;
-Common.DEBUG_MODE = true;
+Common.DEBUG_MODE = false;
+//Common.DEBUG_MODE = true;
 Common.WINDOW_SIZE = {
   width: 800,
   height: 600,
@@ -64,19 +64,7 @@ Common.MENTION_MENU_HINT_TEXT = 'Mention:';
 Common.MESSAGE_PREVENT_RECALL = 'Blocked a message recall.';
 Common.EMOJI_MAXIUM_SIZE = 120;
 
-Common.languageTitle = 'Language（Need to Restart）';
-Common.languageDesc = 'Select a default language for WeChat!';
-Common.recallTitle = 'Prevent Message Recall';
-Common.recallDesc = 'Message recall feature might be annoying';
-Common.instanceTitle = 'Allow Multiple Instance';
-Common.instanceDesc = 'Multiple instance can login with different accounts';
-Common.iconTitle = 'File Path (In Development)';
-Common.iconDesc = 'Set a default file path';
-Common.trayTitle = 'Tray Icon color (Black/White)';
-Common.trayDesc = 'Select a color to match your desktop theme';
-
-Common.UPGRADE = 'UPGRADE';
-Common.FEEDBACK = 'FEEDBACK';
+Common.ROBOT = '@JacK';
 
 Common.MENU = {
   about: 'About Electronic Wechat',

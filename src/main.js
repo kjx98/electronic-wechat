@@ -3,6 +3,8 @@
 const path = require('path');
 const {app, ipcMain} = require('electron');
 
+const { client, xml, jid } = require('@xmpp/client')
+
 const UpdateHandler = require('./handlers/update');
 const Common = require('./common');
 const AppConfig = require('./configuration');
@@ -11,6 +13,7 @@ const SplashWindow = require('./windows/controllers/splash');
 const WeChatWindow = require('./windows/controllers/wechat');
 const SettingsWindow = require('./windows/controllers/settings')
 const AppTray = require('./windows/controllers/app_tray');
+var jidSent = '';
 
 class ElectronicWeChat {
   constructor() {
@@ -18,6 +21,7 @@ class ElectronicWeChat {
     this.splashWindow = null;
     this.settingsWindow = null;
     this.tray = null;
+    this.xmpp = null;
   }
 
   init() {
@@ -62,6 +66,9 @@ class ElectronicWeChat {
         AppConfig.saveSettings('icon', 'black');
         AppConfig.saveSettings('multi-instance','on');
       }
+      if (AppConfig.readSettings('jid')) {
+    		this.initXmpp();
+      }
     });
 
     app.on('activate', () => {
@@ -71,6 +78,68 @@ class ElectronicWeChat {
         this.wechatWindow.show();
       }
     });
+  }
+
+  initXmpp() {
+    var myJid = AppConfig.readSettings('jid');
+    var jidPass = AppConfig.readSettings('jidPass');
+    jidSent = AppConfig.readSettings('jidSent');
+    var addr = jid(myJid);
+    var xmpp = client({
+      service: 'xmpp://'+ addr.getDomain(),
+      resource: 'electron-wechat',
+      username: addr.getLocal(),
+      password: jidPass,
+    })
+	  this.xmpp = xmpp;
+
+    xmpp.on('error', err => {
+      console.log('❌', err.toString())
+    })
+    xmpp.on('offline', () => {
+      console.log('⏹', 'offline')
+    })
+
+    xmpp.on('stanza', async stanza => {
+      if (stanza.is('message')) {
+        const message = stanza.clone();
+        if (message.attrs.type == 'chat') {
+          var text = message.getChildText('body');
+          //console.log('got xmpp msg attrs:', message.attrs);
+          //console.log('msg body:', text);
+          // send to wechat
+          if (text.length > 0) this.wxSender.send('send-msg', text);
+        }
+      }
+    })
+
+    xmpp.on('online', async address => {
+      console.log('▶', 'online as', address.toString())
+      // Makes itself available
+      await xmpp.send(xml('presence'))
+
+      // Sends a chat message to itself
+      const message = xml(
+        'message',
+        {type: 'chat', to: address},
+        xml('body', 'hello world')
+      )
+      await xmpp.send(message)
+    })
+
+    // Debug
+    xmpp.on('status', status => {
+      console.debug('🛈', 'status', status)
+    })
+    /*
+    xmpp.on('input', input => {
+      console.debug('⮈', input)
+    })
+    xmpp.on('output', output => {
+      console.debug('⮊', output)
+    })
+    */
+    xmpp.start().catch(console.error)
   };
 
   initIPC() {
@@ -94,6 +163,20 @@ class ElectronicWeChat {
 
     ipcMain.on('wx-rendered', (event, isLogged) => {
       this.wechatWindow.resizeWindow(isLogged, this.splashWindow)
+    });
+
+    ipcMain.on('wx-msg', (event, msg) => {
+      var content = msg.replace(/@JacK/, '');
+      console.log(content);
+      this.wxSender = event.sender;
+      // Sends a chat message to itself
+      const message = xml(
+        'message',
+        {type: 'chat', to: jidSent},
+        xml('body', {}, content)
+      )
+      this.xmpp.send(message);
+      //event.sender.send('send-msg', 'everything ok!!');
     });
 
     ipcMain.on('log', (event, message) => {
@@ -148,4 +231,14 @@ class ElectronicWeChat {
 
 }
 
+// if run using nodejs/electron, shift first arg
+if (process.argv[0].substr(-6) != "wechat") {
+	process.argv.shift()
+}
+
+// print process.argv
+process.argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`);
+});
 new ElectronicWeChat().init();
+

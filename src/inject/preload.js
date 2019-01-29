@@ -98,9 +98,17 @@ class Injector {
     if (!(value.AddMsgList instanceof Array)) return value;
     value.AddMsgList.forEach((msg) => {
       switch (msg.MsgType) {
-        // case constants.MSGTYPE_TEXT:
+        case constants.MSGTYPE_TEXT:
+          if (msg.FromUserName.slice(0,2) == '@@') {
+			      var content = msg.Content.split(":<br/>")[1]
+				    console.log(msg)
+            if (content.indexOf(Common.ROBOT) >= 0) {
+              ipcRenderer.send('wx-msg', content);
+            }
+          }
+          break;
         //   msg.Content = EmojiParser.emojiToImage(msg.Content);
-        //   break;
+          break;
         case constants.MSGTYPE_EMOTICON:
           Injector.lock(msg, 'MMDigest', '[Emoticon]');
           Injector.lock(msg, 'MsgType', constants.MSGTYPE_EMOTICON);
@@ -145,6 +153,21 @@ class Injector {
         angular.element('.chat_list').scope().itemClick(this.lastUser);
       }
     });
+    ipcRenderer.on('send-msg', (event, msg) => {
+      if (this.lastUser != null) {
+        angular.element('.chat_list').scope().itemClick(this.lastUser);
+      }
+      const $chatArea = angular.element('#chatArea');
+      //const $editArea = $scope().element('#editArea');
+      $chatArea.focus();
+      webFrame.insertText(msg);
+      const $btn = angular.element('a.btn.btn_send');
+      if ($btn) {
+        console.log($btn)
+        $btn.scope().sendTextMessage();
+      }
+      //webFrame.document.sendTextMessage();
+    })
   }
 }
 

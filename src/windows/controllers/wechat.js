@@ -152,7 +152,7 @@ class WeChatWindow {
         this.hide();
       }
       this.unregisterLocalShortCut();
-      app.exit(0)
+      app.exit()
     });
 
     this.wechatWindow.on('page-title-updated', (ev) => {
