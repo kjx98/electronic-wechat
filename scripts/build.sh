@@ -29,6 +29,8 @@ ignore_list="dist|scripts|\.idea|.*\.md|.*\.yml|node_modules/nodejieba"
 
 electron-packager . "${APP_NAME}" --platform=$PLATFORM --arch=$ARCH --asar --icon=assets/icon.icns --overwrite --out=./dist --ignore=${ignore_list}
 
+rm -rf dist/${APP_NAME}-${PLATFORM}-${ARCH}/swiftshader
+
 if [ $? -eq 0 ]; then
   echo -e "$(tput setaf 2)Packaging for $PLATFORM $ARCH succeeded.$(tput sgr0)\n"
 fi

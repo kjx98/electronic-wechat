@@ -127,11 +127,11 @@ class ElectronicWeChat {
       await xmpp.send(message)
     })
 
+    /*
     // Debug
     xmpp.on('status', status => {
       console.debug('🛈', 'status', status)
     })
-    /*
     xmpp.on('input', input => {
       console.debug('⮈', input)
     })

@@ -6,8 +6,6 @@ const ShareMenu = require('./share_menu');
 const MentionMenu = require('./mention_menu');
 const BadgeCount = require('./badge_count');
 const Common = require('../common');
-// const EmojiParser = require('./emoji_parser');
-// const emojione = require('emojione');
 
 const AppConfig = require('../configuration');
 
@@ -106,8 +104,6 @@ class Injector {
               ipcRenderer.send('wx-msg', content);
             }
           }
-          break;
-        //   msg.Content = EmojiParser.emojiToImage(msg.Content);
           break;
         case constants.MSGTYPE_EMOTICON:
           Injector.lock(msg, 'MMDigest', '[Emoticon]');
