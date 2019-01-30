@@ -6,7 +6,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron src/main.js",
-    "build": "./scripts/build-all.sh",
+    "build": "electron-builder --x64 --linux tar.xz",
     "build:osx": "./scripts/build.sh darwin x64",
     "build:osx64": "./scripts/build.sh darwin x64",
     "build:linux32": "./scripts/build.sh linux ia32",
@@ -15,6 +15,19 @@
     "build:win": ".\\scripts\\build-win32.bat win32 ia32",
     "build:win32": ".\\scripts\\build-win32.bat win32 ia32",
     "build:win64": ".\\scripts\\build-win32.bat win32 x64"
+  },
+  "build": {
+    "productName": "electron-wechat",
+    "appId": "com.electron.wechat",
+    "directories": {
+      "output": "build"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://github.com/kjx98/electronic-wechat/releases/"
+      }
+    ]
   },
   "repository": {
     "type": "git",
@@ -41,6 +54,7 @@
   },
   "devDependencies": {
     "electron": "^4.0.2",
+    "electron-builder": "^20.38.5",
     "electron-packager": "^13.0.1"
   }
 }

@@ -59,6 +59,7 @@ class ElectronicWeChat {
   }
   initApp() {
     app.on('ready', ()=> {
+	  autoUpdater.checkForUpdates();
       this.createSplashWindow();
       this.createWeChatWindow();
       this.createTray();
