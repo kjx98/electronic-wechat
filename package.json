@@ -6,8 +6,8 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron src/main.js",
-    "dist": "electron-builder --linux --x64",
-    "build": "electron-builder --x64 --linux tar.xz",
+    "dist": "electron-builder --x64 --linux tar.xz",
+    "build": "electron-builder --x64 --dir",
     "build:osx": "./scripts/build.sh darwin x64",
     "build:osx64": "./scripts/build.sh darwin x64",
     "build:linux32": "./scripts/build.sh linux ia32",
@@ -22,8 +22,52 @@
     "appId": "com.electron.wechat",
     "copyright": "MIT",
     "compression": "normal",
+    "generateUpdatesFilesForAllChannels": true,
     "directories": {
       "output": "build"
+    },
+    "files": [
+      "**/*",
+      "!**/node_modules/.bin",
+      "!**/node_modules/*builder*/*",
+      "!**/build/*",
+      "!**/scripts/*",
+      "!**/dist/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "depends": [
+        "GConf2",
+        "libnotify",
+        "libXtst",
+        "nss"
+      ],
+      "packageCategory": "Applications/Internet",
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "rpm",
+        "deb",
+        "tar.xz",
+        "tar.bz2"
+      ]
+    },
+    "mac": {
+      "icon": "assets/icon.icns",
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "publish": [
       {
@@ -48,6 +92,7 @@
     "url": "https://github.com/kjx98/wechat-electron/issues"
   },
   "homepage": "https://github.com/kjx98/wechat-electron/",
+  "postinstall": "electron-builder install-app-deps",
   "dependencies": {
     "@xmpp/client": "^0.6.2",
     "electron-localshortcut": "^1.1.0",
@@ -57,6 +102,12 @@
   },
   "devDependencies": {
     "electron": "^4.0.2",
-    "electron-builder": "^20.38.5"
+    "electron-builder": "^20.38.5",
+    "electron-publish": "^20.38.5",
+    "app-builder-bin": "^2.6.3",
+    "app-builder-lib": "^20.38.5",
+    "dmg-builder": "^6.5.4",
+    "electron-osx-sign": "^0.4.11",
+    "nodejieba": "^2.3.0"
   }
 }
