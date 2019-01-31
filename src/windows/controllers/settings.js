@@ -6,7 +6,7 @@
 
 const path = require('path');
 const { BrowserWindow } = require('electron');
-const electronLocalShortcut = require('electron-localshortcut');
+//const electronLocalShortcut = require('electron-localshortcut');
 
 const AppConfig = require('../../configuration');
 
@@ -73,13 +73,15 @@ class SettingsWindow {
   }
 
   registerLocalShortcut() {
+	/*
     electronLocalShortcut.register(this.settingsWindow, 'Esc', () => {
       this.settingsWindow.close();
     });
+	*/
   }
 
   unregisterLocalShortCut() {
-    electronLocalShortcut.unregisterAll(this.settingsWindow);
+    //electronLocalShortcut.unregisterAll(this.settingsWindow);
   }
 
   initSettingsWindowShortcut() {
