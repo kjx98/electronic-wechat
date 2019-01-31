@@ -24,16 +24,8 @@
     "compression": "normal",
     "generateUpdatesFilesForAllChannels": true,
     "directories": {
-      "output": "build"
+      "output": "dist"
     },
-    "files": [
-      "**/*",
-      "!**/node_modules/.bin",
-      "!**/node_modules/*builder*/*",
-      "!**/build/*",
-      "!**/scripts/*",
-      "!**/dist/*"
-    ],
     "win": {
       "target": [
         "nsis",
@@ -52,6 +44,15 @@
       "publish": [
         "github"
       ],
+    "files": [
+      "**/*",
+      "!**/node_modules/.bin",
+      "!**/node_modules/*builder*/*",
+      "!**/node_modules/nodejieba/*",
+      "!**/build/*",
+      "!**/scripts/*",
+      "!**/dist/*"
+    ],
       "target": [
         "rpm",
         "deb",
