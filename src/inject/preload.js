@@ -8,6 +8,7 @@ const BadgeCount = require('./badge_count');
 const Common = require('../common');
 
 const AppConfig = require('../configuration');
+var saveLastUser = null;
 
 class Injector {
   init() {
@@ -16,7 +17,6 @@ class Injector {
     }
     this.initInjectBundle();
     this.initAngularInjection();
-    this.lastUser = null;
     this.initIPC();
     webFrame.setVisualZoomLevelLimits(1, 1);
 
@@ -98,12 +98,26 @@ class Injector {
       switch (msg.MsgType) {
         case constants.MSGTYPE_TEXT:
           if (msg.FromUserName.slice(0,2) == '@@') {
-			      var content = msg.Content.split(":<br/>")[1]
-				    console.log(msg)
+			      var content = msg.Content.split(':<br/>')[1];
+				    //console.log('Got gmsg:', msg);
             if (content.indexOf(Common.ROBOT) >= 0) {
+              if (saveLastUser != msg.FromUserName) {
+                saveLastUser = msg.FromUserName;
+                console.log('set saveLastUser/default群', saveLastUser);
+              }
               ipcRenderer.send('wx-msg', content);
             }
-          }
+          } /* else if (msg.MMIsSend && msg.ToUserName.slice(0,2) == '@@') {
+            // I sent to defGroup
+            console.log('I sent:', msg);
+            if (content.indexOf(Common.ROBOT) >= 0) {
+              if (saveLastUser === null) {
+                saveLastUser = msg.ToUserName;
+                console.log('set saveLastUser/default群', saveLastUser);
+              }
+              ipcRenderer.send('wx-msg', content);
+            }
+          } */
           break;
         case constants.MSGTYPE_EMOTICON:
           Injector.lock(msg, 'MMDigest', '[Emoticon]');
@@ -142,24 +156,32 @@ class Injector {
     ipcRenderer.on('hide-wechat-window', () => {
       this.lastUser = angular.element('#chatArea').scope().currentUser;
       angular.element('.chat_list').scope().itemClick("");
+	    console.log("saved lastUser:", this.lastUser);
     });
     // recover to the last chat user
     ipcRenderer.on('show-wechat-window', () => {
-      if (this.lastUser != null) {
+      if (this.lastUser) {
         angular.element('.chat_list').scope().itemClick(this.lastUser);
       }
     });
     ipcRenderer.on('send-msg', (event, msg) => {
-      if (this.lastUser != null) {
-        angular.element('.chat_list').scope().itemClick(this.lastUser);
+      if (saveLastUser !== null && this.lastUser !== saveLastUser) {
+        this.lastUser = saveLastUser;
+        //this.lastUser = AppConfig.readSettings('defGroup')
       }
-      const $chatArea = angular.element('#chatArea');
-      //const $editArea = $scope().element('#editArea');
-      $chatArea.focus();
+      if (this.lastUser !== null) {
+        var ele=angular.element('.chat_list');
+        //var ele=angular.element('div#J_NavChatScrollBody.chat_list');
+        //console.log(".chat_list scope:", ele);
+        ele.scope().itemClick(this.lastUser);
+      }
+      //console.log("try send-msg, lastUser:", this.lastUser, msg);
+      var editArea = angular.element('div.box_ft.ng-scope');
+      editArea.click();
       webFrame.insertText(msg);
       const $btn = angular.element('a.btn.btn_send');
       if ($btn) {
-        console.log($btn)
+        //console.log($btn)
         $btn.scope().sendTextMessage();
       }
       //webFrame.document.sendTextMessage();

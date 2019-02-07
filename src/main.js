@@ -1,9 +1,9 @@
 'use strict';
 
 const path = require('path');
-const {app, ipcMain} = require('electron');
+const {app, ipcMain, webContents, session} = require('electron');
 
-const { client, xml, jid } = require('@xmpp/client')
+const { client, xml, jid } = require('@xmpp/client');
 
 const UpdateHandler = require('./handlers/update');
 const Common = require('./common');
@@ -28,6 +28,9 @@ class ElectronicWeChat {
     if(this.checkInstance()) {
       this.initApp();
       this.initIPC();
+      if (AppConfig.readSettings('jid')) {
+    		this.initXmpp();
+      }
     } else {
       app.quit();
     }
@@ -66,9 +69,6 @@ class ElectronicWeChat {
         AppConfig.saveSettings('icon', 'black');
         AppConfig.saveSettings('multi-instance','on');
       }
-      if (AppConfig.readSettings('jid')) {
-    		this.initXmpp();
-      }
     });
 
     app.on('activate', () => {
@@ -85,8 +85,10 @@ class ElectronicWeChat {
     var jidPass = AppConfig.readSettings('jidPass');
     jidSent = AppConfig.readSettings('jidSent');
     var addr = jid(myJid);
+    //  service: addr.getDomain(),
+    // addr.getDomain() for hot-chilli.net
     var xmpp = client({
-      service: 'xmpp://'+ addr.getDomain(),
+      service: 'xmpp://'+addr.getDomain()+':5222',
       resource: 'electron-wechat',
       username: addr.getLocal(),
       password: jidPass,
@@ -108,7 +110,11 @@ class ElectronicWeChat {
           //console.log('got xmpp msg attrs:', message.attrs);
           //console.log('msg body:', text);
           // send to wechat
-          if (text.length > 0) this.wxSender.send('send-msg', text);
+          if (text) {
+            console.log('will send-msg', text);
+             if (this.wxSender) this.wxSender.send('send-msg', text);
+             // else this.wechatWindow.webContents.send('send-msg', text);
+          }
         }
       }
     })
@@ -124,7 +130,7 @@ class ElectronicWeChat {
         {type: 'chat', to: address},
         xml('body', 'hello world')
       )
-      await xmpp.send(message)
+      await xmpp.send(message);
     })
 
     /*
@@ -144,6 +150,13 @@ class ElectronicWeChat {
 
   initIPC() {
     ipcMain.on('badge-changed', (event, num) => {
+      if (this.xmpp.status === 'online' && this.xmppok === undefined) {
+        this.xmppok = true;
+        var webC = webContents.getFocusedWebContents();
+        if (webC) webC.send('send-msg', "xmpp ready!!!");
+	      //this.wechatWindow.webContents.send('send-msg', 'xmpp ready!!!');
+        console.log("notify wx xmpp ready!!!");
+      }
       if (process.platform == "darwin") {
         app.dock.setBadge(num);
         if (num) {
@@ -159,6 +172,15 @@ class ElectronicWeChat {
 
     ipcMain.on('user-logged', () => {
       this.wechatWindow.resizeWindow(true, this.splashWindow)
+      //var ele=this.wechatWindow.angular.element('.chat_list');
+      //console.log(".chat_list scope:", ele);
+      /*
+      // Query all cookies.
+      session.defaultSession.cookies.get({}, (error, cookies) => {
+        console.log("got cookies:");
+        console.log(error, cookies);
+      })
+      */
     });
 
     ipcMain.on('wx-rendered', (event, isLogged) => {
@@ -167,7 +189,7 @@ class ElectronicWeChat {
 
     ipcMain.on('wx-msg', (event, msg) => {
       var content = msg.replace(/@JacK/, '');
-      console.log(content);
+      console.log('wx-msg:', content);
       this.wxSender = event.sender;
       // Sends a chat message to itself
       const message = xml(
