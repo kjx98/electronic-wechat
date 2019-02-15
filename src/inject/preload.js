@@ -154,10 +154,10 @@ class Injector {
       }
     });
     ipcRenderer.on('send-msg', (event, msg) => {
-      if (saveLastUser !== null && this.lastUser !== saveLastUser) {
+      if (saveLastUser && this.lastUser !== saveLastUser) {
         this.lastUser = saveLastUser;
       }
-      if (this.lastUser !== null) {
+      if (this.lastUser) {
         var ele=angular.element('.chat_list');
         //var ele=angular.element('div#J_NavChatScrollBody.chat_list');
         //console.log(".chat_list scope:", ele);
