@@ -99,7 +99,6 @@ class Injector {
         case constants.MSGTYPE_TEXT:
           if (msg.FromUserName.slice(0,2) == '@@') {
 			      var content = msg.Content.split(':<br/>')[1];
-				    //console.log('Got gmsg:', msg);
             if (content.indexOf(Common.ROBOT) >= 0) {
               if (saveLastUser != msg.FromUserName) {
                 saveLastUser = msg.FromUserName;
@@ -107,17 +106,7 @@ class Injector {
               }
               ipcRenderer.send('wx-msg', content);
             }
-          } /* else if (msg.MMIsSend && msg.ToUserName.slice(0,2) == '@@') {
-            // I sent to defGroup
-            console.log('I sent:', msg);
-            if (content.indexOf(Common.ROBOT) >= 0) {
-              if (saveLastUser === null) {
-                saveLastUser = msg.ToUserName;
-                console.log('set saveLastUser/default群', saveLastUser);
-              }
-              ipcRenderer.send('wx-msg', content);
-            }
-          } */
+          }
           break;
         case constants.MSGTYPE_EMOTICON:
           Injector.lock(msg, 'MMDigest', '[Emoticon]');
@@ -167,7 +156,6 @@ class Injector {
     ipcRenderer.on('send-msg', (event, msg) => {
       if (saveLastUser !== null && this.lastUser !== saveLastUser) {
         this.lastUser = saveLastUser;
-        //this.lastUser = AppConfig.readSettings('defGroup')
       }
       if (this.lastUser !== null) {
         var ele=angular.element('.chat_list');
@@ -175,13 +163,13 @@ class Injector {
         //console.log(".chat_list scope:", ele);
         ele.scope().itemClick(this.lastUser);
       }
+      window.focus();
       //console.log("try send-msg, lastUser:", this.lastUser, msg);
-      var editArea = angular.element('div.box_ft.ng-scope');
+      const editArea = angular.element('div.box_ft.ng-scope');
       editArea.click();
       webFrame.insertText(msg);
       const $btn = angular.element('a.btn.btn_send');
       if ($btn) {
-        //console.log($btn)
         $btn.scope().sendTextMessage();
       }
       //webFrame.document.sendTextMessage();
