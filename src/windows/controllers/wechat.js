@@ -7,7 +7,7 @@
 const path = require('path');
 const isXfce = require('is-xfce');
 const { app, shell, BrowserWindow } = require('electron');
-const electronLocalShortcut = require('electron-localshortcut');
+//const electronLocalShortcut = require('electron-localshortcut');
 
 const AppConfig = require('../../configuration');
 
@@ -168,13 +168,15 @@ class WeChatWindow {
   }
 
   registerLocalShortcut() {
+    /*
     electronLocalShortcut.register(this.wechatWindow, 'CommandOrControl + H', () => {
       this.wechatWindow.hide();
     });
+    */
   }
 
   unregisterLocalShortCut() {
-    electronLocalShortcut.unregisterAll(this.wechatWindow);
+    //electronLocalShortcut.unregisterAll(this.wechatWindow);
   }
 
   initWechatWindowShortcut() {

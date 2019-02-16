@@ -8,7 +8,7 @@
     "start": "electron src/main.js",
     "dist": "electron-builder --x64 --linux tar.xz",
     "build": "electron-builder --x64 --dir",
-    "build:osx": "./scripts/build.sh darwin x64",
+    "build:osx": "electron-builder --x64 --mac tar.xz",
     "build:osx64": "./scripts/build.sh darwin x64",
     "build:linux32": "./scripts/build.sh linux ia32",
     "build:linux": "./scripts/build.sh linux x64",
@@ -67,6 +67,7 @@
       ],
       "target": [
         "dmg",
+        "tar.xz",
         "zip"
       ]
     },
@@ -96,7 +97,7 @@
   "postinstall": "electron-builder install-app-deps",
   "dependencies": {
     "@xmpp/client": "^0.6.2",
-    "electron-localshortcut": "^1.1.0",
+    "electron-localshortcut": "^3.1.0",
     "is-xfce": "^1.0.2",
     "nconf": "^0.10.0",
     "pinyin": "^2.8.0"
