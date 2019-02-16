@@ -37,7 +37,7 @@ class SettingsWindow {
       icon: 'assets/icon.png',
       titleBarStyle: 'hidden',
       webPreferences: {
-      nodeIntegration: false,
+      nodeIntegration: true,
       contextIsolation: false,
       },
     });
