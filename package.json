@@ -1,7 +1,7 @@
 {
-  "name": "electronic-wechat",
+  "name": "electron-wechat",
   "productName": "electron-wechat",
-  "version": "2.9.0",
+  "version": "2.9.2",
   "description": "An Electron application for WeChat",
   "main": "src/main.js",
   "scripts": {
@@ -34,7 +34,7 @@
   "homepage": "https://github.com/kjx98/wechat-electron/",
   "dependencies": {
     "@xmpp/client": "^0.6.2",
-    "electron-localshortcut": "1.1.0",
+    "electron-localshortcut": "^1.1.0",
     "is-xfce": "^1.0.2",
     "nconf": "^0.10.0",
     "pinyin": "^2.8.0"

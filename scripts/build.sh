@@ -20,7 +20,7 @@ ARCH=$2
 echo "Start packaging for $PLATFORM $ARCH."
 
 if [ $PLATFORM = "linux" ]; then
-    APP_NAME="electronic-wechat"
+    APP_NAME="electron-wechat"
 else
     APP_NAME="Electronic WeChat"
 fi
@@ -30,6 +30,10 @@ ignore_list="dist|build|scripts|\.idea|.*\.md|.*\.yml|node_modules/nodejieba"
 electron-packager . "${APP_NAME}" --platform=$PLATFORM --arch=$ARCH --asar --icon=assets/icon.icns --overwrite --out=./dist --ignore=${ignore_list}
 
 rm -rf dist/${APP_NAME}-${PLATFORM}-${ARCH}/swiftshader
+if [ "$1" = "linux" ]; then
+	rm -f dist/${APP_NAME}-${PLATFORM}-${ARCH}/lib{EGL,GLE}*.so
+	cp scripts/start.sh dist/${APP_NAME}-${PLATFORM}-${ARCH}
+fi
 
 if [ $? -eq 0 ]; then
   echo -e "$(tput setaf 2)Packaging for $PLATFORM $ARCH succeeded.$(tput sgr0)\n"

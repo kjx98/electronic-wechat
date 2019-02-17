@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wechat
+Icon=WECHATDIR/icon.png
+Exec="WECHATDIR/electron-wechat" %f
+Comment=The Drive to Develop
+Categories=Utilities;IM;
+Terminal=false
