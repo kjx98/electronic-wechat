@@ -6,15 +6,13 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron src/main.js",
-    "dist": "electron-builder --x64 --linux tar.xz",
+    "dist": "./scripts/tar-linux.sh",
     "build": "electron-builder --x64 --dir",
-    "build:osx": "electron-builder --x64 --mac tar.xz",
+    "build:osx": "electron-builder --x64 --mac tar.gz",
+    "build:linux": "electron-builder --x64 --linux --dir",
     "build:osx64": "./scripts/build.sh darwin x64",
-    "build:linux32": "./scripts/build.sh linux ia32",
-    "build:linux": "./scripts/build.sh linux x64",
     "build:linux64": "./scripts/build.sh linux x64",
     "build:win": ".\\scripts\\build-win32.bat win32 ia32",
-    "build:win32": ".\\scripts\\build-win32.bat win32 ia32",
     "build:win64": ".\\scripts\\build-win32.bat win32 x64"
   },
   "build": {
@@ -44,15 +42,15 @@
       "publish": [
         "github"
       ],
-    "files": [
-      "**/*",
-      "!**/node_modules/.bin",
-      "!**/node_modules/*builder*/*",
-      "!**/node_modules/nodejieba/*",
-      "!**/build/*",
-      "!**/scripts/*",
-      "!**/dist/*"
-    ],
+      "files": [
+        "**/*",
+        "!**/node_modules/.bin",
+        "!**/node_modules/*builder*/*",
+        "!**/node_modules/nodejieba/*",
+        "!**/build/*",
+        "!**/scripts/*",
+        "!**/dist/*"
+      ],
       "target": [
         "rpm",
         "deb",
@@ -67,6 +65,7 @@
       ],
       "target": [
         "dmg",
+        "tar.gz",
         "tar.xz",
         "zip"
       ]

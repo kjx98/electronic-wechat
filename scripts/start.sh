@@ -7,3 +7,5 @@ desq="$HOME/.local/share/applications/wechat.desktop"
 
 echo "update $desq"
 diff -q $tmpf $desq || cp $tmpf $desq
+
+$dirn/electron-wechat
