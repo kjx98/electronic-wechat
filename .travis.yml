@@ -9,6 +9,7 @@ branches:
 before_script:
 - npm install
 script:
+- npm run build:linux
 - #npm run build:osx
 - ./scripts/tar-linux.sh
 deploy:
