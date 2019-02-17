@@ -8,7 +8,7 @@
     "start": "electron src/main.js",
     "dist": "./scripts/tar-linux.sh",
     "build": "electron-builder --x64 --dir",
-    "build:osx": "electron-builder --x64 --mac tar.gz",
+    "build:osx": "electron-builder --x64 --mac --dir",
     "build:linux": "electron-builder --x64 --linux --dir",
     "build:osx64": "./scripts/build.sh darwin x64",
     "build:linux64": "./scripts/build.sh linux x64",
