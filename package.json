@@ -63,6 +63,7 @@
       "publish": [
         "github"
       ],
+	  "artifactName": "${os}-osx.${ext}",
       "target": [
         "dmg",
         "tar.gz",
