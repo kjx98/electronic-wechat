@@ -14,6 +14,7 @@ const WeChatWindow = require('./windows/controllers/wechat');
 const SettingsWindow = require('./windows/controllers/settings')
 const AppTray = require('./windows/controllers/app_tray');
 var jidSent = '';
+var appDir=null;
 
 class ElectronicWeChat {
   constructor() {
@@ -216,7 +217,7 @@ class ElectronicWeChat {
 
     ipcMain.on('update', (event, message) => {
       let updateHandler = new UpdateHandler();
-      updateHandler.checkForUpdate(`v${app.getVersion()}`, false);
+      updateHandler.checkForUpdate(`v${app.getVersion()}`, false, appDir);
     });
 
     ipcMain.on('open-settings-window', (event, message) => {
@@ -258,9 +259,16 @@ if (process.argv[0].substr(-6) != "wechat") {
 	process.argv.shift()
 }
 
+if (process.platform == 'linux') {
+  appDir = path.dirname(process.argv[0]);
+  //console.log('appDir:', appDir);
+}
+
+/*
 // print process.argv
 process.argv.forEach((val, index) => {
   console.log(`${index}: ${val}`);
 });
+*/
 new ElectronicWeChat().init();
 
