@@ -21,6 +21,8 @@ deploy:
   - 'dist/linux-x64.tar.xz'
   - 'dist/app-src.tgz'
   skip_cleanup: true
+  name: 'electron-wechat'
+  body: 'tagged release'
   on:
     repo: kjx98/electronic-wechat
     branch: stable

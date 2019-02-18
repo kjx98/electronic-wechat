@@ -50,7 +50,7 @@ npm run build:linux
 
 **New:** Linux x64
 
-untar downloaded linux-x64.tar.xz, run start.sh for first run and install desktop App
+untar downloaded linux-x64.tar.xz, run start.sh for first run and install gnome desktop App
 
 ```bash
 tar Jxvf linux-x64.tar.xz

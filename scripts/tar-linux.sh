@@ -2,14 +2,18 @@
 
 if [ ! -d dist ]; then
 	npm run build:linux
-	npm run build:osx
+	if [ "$1" != "linux" ]; then
+		npm run build:osx
+	fi
 fi
 
 cd dist
 
-echo 'Start compressing for mac.'
-tar zcf 'mac-osx.tar.gz' -C mac 'electron-wechat.app'
-echo 'Compress for macos x64 succeed.'
+if [ "$1" != "linux" ]; then
+  echo 'Start compressing for mac.'
+  tar zcf 'mac-osx.tar.gz' -C mac 'electron-wechat.app'
+  echo 'Compress for macos x64 succeed.'
+fi
 
 echo 'Start compressing for Linux x64.'
 if [ ! -d electron-wechat-linux-x64 ]; then
