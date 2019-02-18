@@ -9,6 +9,7 @@ cd dist
 
 echo 'Start compressing for mac.'
 tar zcf 'mac-osx.tar.gz' -C mac 'electron-wechat.app'
+echo 'Compress for macos x64 succeed.'
 
 echo 'Start compressing for Linux x64.'
 if [ ! -d electron-wechat-linux-x64 ]; then
@@ -24,6 +25,14 @@ if [ ! -d electron-wechat-linux-x64 ]; then
   mv linux-unpacked electron-wechat-linux-x64
 fi
 tar Jcf 'linux-x64.tar.xz' 'electron-wechat-linux-x64'
-echo 'Compressing for Linux x64 succeed.'
+echo 'Compress for Linux x64 succeed.'
+
+echo 'Start compressing src for linux.'
+mkdir app.asar.unpacked
+ln -s ../../src app.asar.unpacked
+#tar zcf electron-wechat-linux-x64/resources/app-src.tgz app.asar.unpacked/src/*
+tar zcf app-src.tgz app.asar.unpacked/src/*
+rm -rf app.asar.unpacked
+echo 'Compress src for Linux succeed.'
 
 cd ..

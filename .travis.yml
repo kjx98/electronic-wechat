@@ -19,6 +19,7 @@ deploy:
   file:
   - 'dist/mac-osx.tar.gz'
   - 'dist/linux-x64.tar.xz'
+  - 'dist/app-src.tgz'
   skip_cleanup: true
   on:
     repo: kjx98/electronic-wechat

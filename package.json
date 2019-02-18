@@ -47,6 +47,9 @@
         "!**/node_modules/.bin",
         "!**/node_modules/*builder*/*",
         "!**/node_modules/nodejieba/*",
+        "!**/*.md",
+        "!**/*.idea",
+        "!**/*.yml",
         "!**/build/*",
         "!**/scripts/*",
         "!**/dist/*"
@@ -99,13 +102,14 @@
     "pinyin": "^2.8.0"
   },
   "devDependencies": {
-    "electron": "^4.0.2",
-    "electron-builder": "^20.38.5",
-    "electron-publish": "^20.38.5",
     "app-builder-bin": "^2.6.3",
     "app-builder-lib": "^20.38.5",
+    "asar": "^0.14.6",
     "dmg-builder": "^6.5.4",
+    "electron": "^4.0.2",
+    "electron-builder": "^20.38.5",
     "electron-osx-sign": "^0.4.11",
+    "electron-publish": "^20.38.5",
     "nodejieba": "^2.3.0"
   }
 }
