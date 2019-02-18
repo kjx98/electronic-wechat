@@ -6,7 +6,7 @@
 
 Resurgence, 重新启用, 更新使用electron 4.0, 增加微信群 机器人Hook 监听, 增加xmpp转发.
 
-origin README.md moved to README-geeeeeeeeek.md
+original README.md moved to [README-geeeeeeeeek.md](README-geeeeeeeeek.md)
 
 ---
 
@@ -46,15 +46,16 @@ npm run build:osx
 npm run build:linux
 ```
 
-**New:** Install with your familiar package manager. Check out [images maintained by the community](https://github.com/geeeeeeeeek/electronic-wechat/wiki/System-Support-Matrix#%E7%A4%BE%E5%8C%BA%E8%B4%A1%E7%8C%AE%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85)!
+#### [Download Released App](https://github.com/kjx98/electronic-wechat/releases)
 
-**New:** Or, with homebrew!
+**New:** Linux x64
+
+untar downloaded linux-x64.tar.xz, run start.sh for first run and install desktop App
 
 ```bash
-brew cask install electronic-wechat
+tar Jxvf linux-x64.tar.xz
+./electron-wechat-linux-x64/start.sh
 ```
-
-#### [Download Released App](https://github.com/kjx98/electronic-wechat/releases)
 
 #### License [MIT](LICENSE.md)
 
