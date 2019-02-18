@@ -1,5 +1,10 @@
 # CHANGELOG
 
+**v2.9.3 (2019.02.18) CN**
+1. 升级 **Electron** 至 **V4.0.5**
+2. 改用electron-builder 打包，Linux/MacOS tar包上传
+3. 上传 app-src.tgz 用于仅更新源代码，只15k，便于从github.com下载，待更新update部分代码
+
 **v2.9 (2019.01.27) CN**
 1. 升级 **Electron** 至 **V4.0.2**
 2. change makeSinfleInstance to requestSingleInstanceLock
