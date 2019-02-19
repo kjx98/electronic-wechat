@@ -70,6 +70,7 @@ class ElectronicWeChat {
         AppConfig.saveSettings('icon', 'black');
         AppConfig.saveSettings('multi-instance','on');
       }
+      AppConfig.saveSettings('appVersion', app.getVersion());
     });
 
     app.on('activate', () => {

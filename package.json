@@ -109,7 +109,6 @@
     "pinyin": "^2.8.0"
   },
   "devDependencies": {
-    "asar": "^0.14.6",
     "electron": "^4.0.0",
     "electron-builder": "^20.38.5"
   }

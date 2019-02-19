@@ -19,7 +19,7 @@
     <div class="top-bar-middle">
       <ul class="title-list">
         <li>
-          <h1>Electronic Wechat V3.0.0</h1></li>
+          <h1>Electronic Wechat V<span id="top-title-app-ver">3.0.0</span></h1></li>
         <li>
           <h1 style="font-size:95%;">Powered by Electron V<span id="top-title-electron-ver">process.versions.electron</span></h1></li>
       </ul>
@@ -117,7 +117,7 @@
     const recall = AppConfig.readSettings('prevent-recall');
     const instance = AppConfig.readSettings('multi-instance');
     const trayColor = AppConfig.readSettings('tray-color');
-
+    const appVer =AppConfig.readSettings('appVersion');
     const lanSelect = $('app-language-select');
     const recallSelect = $('app-recall-select');
     const instanceSelect = $('app-instance-select');
@@ -132,6 +132,7 @@
     }
 
     $('top-title-electron-ver').innerText = process.versions.electron;
+    $('top-title-app-ver').innerText = appVer;
     setConfig();
     setListeners()
 
