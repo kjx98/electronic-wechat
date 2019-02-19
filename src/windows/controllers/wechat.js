@@ -13,7 +13,7 @@ const AppConfig = require('../../configuration');
 
 const CSSInjector = require('../../inject/css');
 const MessageHandler = require('../../handlers/message');
-//const UpdateHandler = require('../../handlers/update');
+const UpdateHandler = require('../../handlers/update');
 
 const lan = AppConfig.readSettings('language');
 
@@ -130,12 +130,10 @@ class WeChatWindow {
         this.wechatWindow.webContents.insertCSS(CSSInjector.osxCSS);
       }
 
-      // must wait for login
-      /*
+      // should wait for login?
       if (!UpdateHandler.CHECKED) {
         new UpdateHandler().checkForUpdate(`v${app.getVersion()}`, true);
       }
-      */
     });
 
     this.wechatWindow.webContents.on('new-window', (event, url) => {

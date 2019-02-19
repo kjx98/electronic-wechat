@@ -217,7 +217,7 @@ class ElectronicWeChat {
 
     ipcMain.on('update', (event, message) => {
       let updateHandler = new UpdateHandler();
-      updateHandler.checkForUpdate(`v${app.getVersion()}`, false, appDir);
+      updateHandler.checkForUpdate(`v${app.getVersion()}`, false);
     });
 
     ipcMain.on('open-settings-window', (event, message) => {
@@ -261,6 +261,7 @@ if (process.argv[0].substr(-6) != "wechat") {
 
 if (process.platform == 'linux') {
   appDir = path.dirname(process.argv[0]);
+  new UpdateHandler().setAppDir(appDir);
   //console.log('appDir:', appDir);
 }
 

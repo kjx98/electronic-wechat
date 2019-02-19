@@ -54,6 +54,10 @@
         "!**/scripts/*",
         "!**/dist/*"
       ],
+      "asarUnpack": [
+        "./src/**/*",
+        "./package.json"
+      ],
       "target": [
         "rpm",
         "deb",
@@ -98,12 +102,14 @@
     "@xmpp/client": "^0.6.2",
     "electron-localshortcut": "^3.1.0",
     "fs-extra": "^7.0.1",
+    "tar": "^4.4.8",
+    "get": "^1.4.0",
     "is-xfce": "^1.0.2",
     "nconf": "^0.10.0",
-    "pinyin": "^2.8.0",
-    "tar": "^4.4.8"
+    "pinyin": "^2.8.0"
   },
   "devDependencies": {
+    "asar": "^0.14.6",
     "electron": "^4.0.0",
     "electron-builder": "^20.38.5"
   }

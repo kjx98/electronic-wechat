@@ -32,11 +32,8 @@ tar Jcf 'linux-x64.tar.xz' 'electron-wechat-linux-x64'
 echo 'Compress for Linux x64 succeed.'
 
 echo 'Start compressing src for linux.'
-mkdir app.asar.unpacked
-ln -s ../../src app.asar.unpacked
 #tar zcf electron-wechat-linux-x64/resources/app-src.tgz app.asar.unpacked/src/*
-tar zcf app-src.tgz app.asar.unpacked/src/*
-rm -rf app.asar.unpacked
+tar zcf app-src.tgz -C electron-wechat-linux-x64/resources app.asar.unpacked
 echo 'Compress src for Linux succeed.'
 
 cd ..

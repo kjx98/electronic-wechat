@@ -8,6 +8,7 @@ const { dialog, shell, app, nativeImage } = require('electron');
 const AppConfig = require('../configuration');
 const https = require('https');
 const path = require('path');
+const get = require('get');
 const fs = require('fs-extra'),
       tar = require('tar');
 
@@ -21,8 +22,13 @@ if (lan === 'zh-CN') {
 
 
 class UpdateHandler {
-  checkForUpdate(version, silent, appDir) {
+  setAppDir(appDir) {
+	  UpdateHandler.appDir = appDir;
+  }
+
+  checkForUpdate(version, silent) {
     UpdateHandler.CHECKED = true;
+    var appDir = UpdateHandler.appDir;
     const promise = new Promise((res, rej) => {
       if (Common.ELECTRON === app.getName()) {
         rej(Common.UPDATE_ERROR_ELECTRON);
@@ -49,8 +55,8 @@ class UpdateHandler {
         if (!response) return;
         if (appDir) {
           // to be download fecthed.url
-          console.log('to be downloaded url:', fetched.url);
-          console.log('appDir:', appDir);
+          //console.log('to be downloaded url:', fetched.url);
+          //console.log('appDir:', appDir);
 		      this.dnldUpdate(fetched, appDir);
 		    } else shell.openExternal(fetched.url);
       });
@@ -105,34 +111,28 @@ class UpdateHandler {
   dnldUpdate (fetch, appDir) {
     let appD = appDir+'/resources';
     new Promise((resolve, reject) => {
-      const req = https.get(fetch.url, (res) => {
-        let body = '';
-        res.on('data', (d) => {
-          body += d;
-        });
-        res.on('end', () => {
-          let dir = fs.mkdirsSync('/tmp/upgrade_wx');
-          // 创建 Buffer 流并解压
-          let stream = new require('stream').Readable();
-          stream.push(body);
-          stream.push(null);
-          stream.pipe(tar.extract({
-            sync: true,
-            cwd: dir
-          })).on('close', () => {
-            // 解压完毕，复制更新文件
-            console.log('tar extracted, to:', appD)
-            fs.copySync(dir, appD);
-            //fs.removeSync(dir);
-            // 返回 true 表示需要重启
-            resolve(true);
-          });
+      var dl = get({uri: fetch.url, max_redirs: 20});
+      dl.asBuffer((err, data) => {
+        if (err) throw err;
+        let dir = fs.mkdtempSync('/tmp/upgrade_wx');
+        //console.log('tempDir:', dir);
+        console.log('download length:', data.length);
+        let stream = new require('stream').Readable();
+        stream.push(data);
+        stream.push(null);
+        stream.pipe(tar.extract({
+              sync: true,
+              gzip: true,
+              cwd: dir
+        })).on('close', () => {
+              // 解压完毕，复制更新文件
+              console.log('updates tar extracted, to:', appD)
+              fs.copySync(dir, appD);
+              fs.removeSync(dir);
+              // 返回 true 表示需要重启
+              resolve(true);
         });
       });
-      req.on('error', (err) => {
-        rej('更新文件下载失败，请联系管理员');
-      });
-      req.end();      
     }).then(result => {
       if (result) {
         app.relaunch({ args: process.argv.slice(1) });  // 重启
@@ -140,11 +140,13 @@ class UpdateHandler {
       }
     }).catch(e => {
       // e 错误
+      console.log('dnld update error:', e);
     });
   }
 
 }
 
 UpdateHandler.CHECKED = false;
+UpdateHandler.appDir = null;
 
 module.exports = UpdateHandler;
