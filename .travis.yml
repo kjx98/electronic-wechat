@@ -7,11 +7,12 @@ branches:
   - master
   - stable
 before_script:
-- npm install
+  - npm install
 script:
-- npm run build:linux
-- npm run build:osx
-- "./scripts/tar-linux.sh"
+  - npm run build:linux
+  - npm run build:osx
+  - npm run build:win
+  - "./scripts/tar-linux.sh"
 deploy:
   provider: releases
   api_key:
@@ -20,6 +21,7 @@ deploy:
   - 'dist/mac-osx.tar.gz'
   - 'dist/linux-x64.tar.xz'
   - 'dist/app-src.tgz'
+  - 'dist/electron-wechat-win.exe'
   skip_cleanup: true
   name: 'electron-wechat'
   body: 'stable release'

@@ -100,6 +100,14 @@ class WeChatWindow {
       clearInterval(key);
       delete this.inervals[key];
     });
+    if (AppConfig.readSettings('proxy')) {
+      const ses = this.wechatWindow.webContents.session;
+      let proxy = AppConfig.readSettings('proxy');
+      console.log('setProxy:', proxy);
+      ses.setProxy({proxyRules:proxy},() => {
+        console.log('setProxy done:');
+      });
+    }
 
     this.loadURL(Common.WEB_WECHAT);
     const int = setInterval(() => {

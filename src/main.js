@@ -43,15 +43,15 @@ class ElectronicWeChat {
       app.quit()
     } else {
       app.on('second-instance', (event,commandLine, workingDirectory) => {
-          if(this.splashWindow && this.splashWindow.isShown){
-            this.splashWindow.show();
-            }
-            if(this.wechatWindow){
+        if(this.splashWindow && this.splashWindow.isShown){
+          this.splashWindow.show();
+        }
+        if(this.wechatWindow){
           this.wechatWindow.show();
-            }
-            if(this.settingsWindow && this.settingsWindow.isShown){
-        this.settingsWindow.show();
-            }
+        }
+        if(this.settingsWindow && this.settingsWindow.isShown){
+          this.settingsWindow.show();
+        }
       });
       app.on('ready', () => {
       })
@@ -192,6 +192,7 @@ class ElectronicWeChat {
     ipcMain.on('wx-msg', (event, msg) => {
       var content = msg.replace(/@JacK/, '');
       console.log('wx-msg:', content);
+      if (!this.xmpp) return;
       this.wxSender = event.sender;
       // Sends a chat message to itself
       const message = xml(

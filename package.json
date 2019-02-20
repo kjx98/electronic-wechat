@@ -10,9 +10,9 @@
     "build": "./scripts/tar-linux.sh linux",
     "build:osx": "electron-builder --x64 --mac --dir",
     "build:linux": "electron-builder --x64 --linux --dir",
+    "build:win": "electron-builder --x64 --win nsis",
     "build:osx64": "./scripts/build.sh darwin x64",
     "build:linux64": "./scripts/build.sh linux x64",
-    "build:win": ".\\scripts\\build-win32.bat win32 ia32",
     "build:win64": ".\\scripts\\build-win32.bat win32 x64"
   },
   "build": {
@@ -25,6 +25,7 @@
       "output": "dist"
     },
     "win": {
+      "artifactName": "${name}-${os}.${ext}",
       "target": [
         "nsis",
         "zip"
