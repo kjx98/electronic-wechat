@@ -152,7 +152,7 @@ class ElectronicWeChat {
 
   initIPC() {
     ipcMain.on('badge-changed', (event, num) => {
-      if (this.xmpp.status === 'online' && !this.xmppok) {
+      if (this.xmpp && this.xmpp.status === 'online' && !this.xmppok) {
         this.xmppok = true;
         var webC = webContents.getFocusedWebContents();
         if (webC) webC.send('send-msg', "xmpp ready!!!");
