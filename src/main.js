@@ -113,6 +113,7 @@ class ElectronicWeChat {
           //console.log('msg body:', text);
           // send to wechat
           if (text) {
+			text = text.replace(/\n/,'\r\n');
             console.log('will send-msg', text);
              if (this.wxSender) this.wxSender.send('send-msg', text);
              // else this.wechatWindow.webContents.send('send-msg', text);

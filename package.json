@@ -1,7 +1,7 @@
 {
   "name": "electron-wechat",
   "productName": "electron-wechat",
-  "version": "2.9.7",
+  "version": "2.9.8",
   "description": "An Electron application for WeChat",
   "main": "src/main.js",
   "scripts": {
