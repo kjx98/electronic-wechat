@@ -113,6 +113,9 @@ class ElectronicWeChat {
           //console.log('msg body:', text);
           // send to wechat
           if (text) {
+            console.log('will send-msg', text);
+            if (this.wxSender) this.wxSender.send('send-msg', text);
+			/*
 			var lines = text.split(/\n/);
 			for (var i=0;i<lines.length;i++) {
 				var sText = lines[i];
@@ -123,6 +126,7 @@ class ElectronicWeChat {
             	console.log('will send-msg', sText);
              	if (this.wxSender) this.wxSender.send('send-msg', sText);
 			}
+			*/
           }
         }
       }

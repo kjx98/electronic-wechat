@@ -167,7 +167,16 @@ class Injector {
       //console.log("try send-msg, lastUser:", this.lastUser, msg);
       const editArea = angular.element('div.box_ft.ng-scope');
       editArea.click();
-      webFrame.insertText(msg);
+      //webFrame.insertText(msg);
+		var lines = msg.split(/\n/);
+		for (var i=0;i<lines.length;i++) {
+			var sText = lines[i];
+			i++;
+			if (i < lines.length) {
+				sText += '\r\n' + lines[i];
+			}
+      		webFrame.insertText(sText);
+		}
       const $btn = angular.element('a.btn.btn_send');
       if ($btn) {
         $btn.scope().sendTextMessage();
