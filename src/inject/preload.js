@@ -173,7 +173,7 @@ class Injector {
 			var sText = lines[i];
 			i++;
 			if (i < lines.length) {
-				sText += '\r\n' + lines[i];
+				sText += '\r\n' + lines[i] + '\r\n';
 			}
       		webFrame.insertText(sText);
 		}
